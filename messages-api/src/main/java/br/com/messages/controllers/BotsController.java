@@ -1,4 +1,4 @@
-package br.com.bots.controller;
+package br.com.messages.controllers;
 
 import java.util.Optional;
 
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.bots.entity.BotEntity;
-import br.com.bots.service.impl.BotServiceImpl;
+import br.com.messages.entities.BotEntity;
+import br.com.messages.services.impl.BotServiceImpl;
 
 @RestController
 @RequestMapping(value = "/bots")
@@ -26,29 +26,52 @@ public class BotsController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<BotEntity> getBots(@PathVariable String id) {
-		Optional<BotEntity> bot = service.findBotById(id);
-		if(bot.isPresent()) {
-			return ResponseEntity.ok(bot.get());	
+		Optional<BotEntity> bot = null;
+		try {
+			bot = service.findBotById(id);
+			if(!bot.isPresent()) {
+				return ResponseEntity.noContent().build();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		return ResponseEntity.noContent().build();
+		return ResponseEntity.ok(bot.get());
+		
+		
 	}
 	
 	@PostMapping
 	public ResponseEntity<BotEntity> createBots(@RequestBody BotEntity bot) {
-		service.save(bot);
+		try {
+			service.save(bot);	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 		return ResponseEntity.ok(bot);
 	}
 	
 	@PutMapping
 	public ResponseEntity<BotEntity> updateBots(@RequestBody BotEntity bot) {
-		service.update(bot);
+		try {
+			service.save(bot);	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
 		return ResponseEntity.ok(bot);
 	}
 	
 	@DeleteMapping
-	public ResponseEntity deleteBots(@RequestBody BotEntity bot) {
-		service.delete(bot);
-		return new ResponseEntity(HttpStatus.OK);
+	public ResponseEntity<Object> deleteBots(@RequestBody BotEntity bot) {
+		try {
+			service.delete(bot);	
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		return ResponseEntity.ok().build();
 	}
 	
 	

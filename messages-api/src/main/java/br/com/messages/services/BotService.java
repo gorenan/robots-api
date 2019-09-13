@@ -1,8 +1,8 @@
-package br.com.bots.service;
+package br.com.messages.services;
 
 import java.util.Optional;
 
-import br.com.bots.entity.BotEntity;
+import br.com.messages.entities.BotEntity;
 
 public interface BotService {
 

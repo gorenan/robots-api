@@ -1,13 +1,13 @@
-package br.com.bots.service.impl;
+package br.com.messages.services.impl;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.bots.entity.BotEntity;
-import br.com.bots.repository.BotsRepository;
-import br.com.bots.service.BotService;
+import br.com.messages.entities.BotEntity;
+import br.com.messages.repositories.BotsRepository;
+import br.com.messages.services.BotService;
 
 @Service
 public class BotServiceImpl implements BotService {
