@@ -25,27 +25,41 @@ public class BotServiceImpl implements BotService {
 		return bot ;
 	}
 
-	public void save(BotEntity bot) {
-		try {
-			repository.save(bot);	
-		} catch (Exception e) {
-			 e.printStackTrace();
+	public void save(BotEntity bot) throws Exception {
+		if(bot.getName() != null || !bot.getName().equals("")) {
+			try {
+				repository.save(bot);
+			} catch (Exception e) {
+				 e.printStackTrace();
+			}
+		}else {
+			throw new Exception("Dados Invalidos");
 		}
+		
 	}
 
-	public void delete(BotEntity bot) {
-		try {
-			repository.delete(bot);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public void delete(BotEntity bot) throws Exception {
+		if(bot.getId() != null || !bot.getId().equals("")){
+			try {
+				repository.delete(bot);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+		} else {
+			throw new Exception("Dados Invalidos");
 		}
+		
 	}
 
-	public void update(BotEntity bot) {
-		try {
-			repository.save(bot);	
-		} catch (Exception e) {
-			 e.printStackTrace();
-		}	
+	public void update(BotEntity bot) throws Exception {
+		if(bot.getId() != null || !bot.getId().equals("")){
+			try {
+				repository.save(bot);	
+			} catch (Exception e) {
+				 e.printStackTrace();
+			}	
+		}else {
+			throw new Exception("Dados Invalidos");
+		}
 	}
 }

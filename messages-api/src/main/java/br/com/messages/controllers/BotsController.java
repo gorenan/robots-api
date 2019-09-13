@@ -55,7 +55,7 @@ public class BotsController {
 	@PutMapping
 	public ResponseEntity<BotEntity> updateBots(@RequestBody BotEntity bot) {
 		try {
-			service.save(bot);	
+			service.update(bot);	
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

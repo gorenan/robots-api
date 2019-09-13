@@ -39,16 +39,29 @@ public class MessageServiceImpl implements MessageService{
 		return messages;
 	}
 
-	public void createMessage(MessageEntity message) {
-		try {
-			if(message.getConversationId() == null || message.getConversationId().equals("") ) {
-				message.setConversationId(new ObjectId().toString());	
+	public void createMessage(MessageEntity message) throws Exception {
+		if(isMessageValid(message)){
+				try {
+				if(message.getConversationId() == null || message.getConversationId().equals("") ) {
+					message.setConversationId(new ObjectId().toString());	
+				}
+				message.setTimestamp(new Date());
+				repository.save(message);
+			} catch (Exception e) {
+				 e.printStackTrace();
 			}
-			message.setTimestamp(new Date());
-			repository.save(message);
-		} catch (Exception e) {
-			 e.printStackTrace();
+		} else {
+			throw new Exception("Dados Invalidos");
 		}
+	}
+
+	private boolean isMessageValid(MessageEntity message) {
+		if(message.getFrom() == null || message.getFrom().equals("") || 
+			message.getTo() == null || message.getTo().equals("") ||
+			message.getText() == null || message.getText().equals("")) {
+			return false;	
+		} 
+		return true;
 	}
 
 }

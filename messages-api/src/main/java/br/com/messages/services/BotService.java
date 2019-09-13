@@ -8,8 +8,8 @@ public interface BotService {
 
 	Optional<BotEntity> findBotById(String id);
 	
-	void save(BotEntity bot);
+	void save(BotEntity bot) throws Exception;
 	
-	void delete(BotEntity bot);
+	void delete(BotEntity bot) throws Exception;
 	
 }

@@ -10,6 +10,6 @@ public interface MessageService {
 	
 	Iterable<MessageEntity> getMessagesByConversationId(String id);
 	
-	void createMessage(MessageEntity message);
+	void createMessage(MessageEntity message) throws Exception;
 	
 }
